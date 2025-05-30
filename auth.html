@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/auth.css">
+    <title>Мой кабинет - Авторизация</title>
+</head>
+<body>
+    <div class="auth-form">
+        <h1>Мой кабинет</h1>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="example@school.ru" required>
+                <div class="error" id="emailError">Введите корректный email (например: user@example.com)</div>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" placeholder="только латинские буквы и цифры" required>
+                <div class="error" id="passwordError">Пароль должен содержать только строчные латинские буквы и цифры</div>
+            </div>
+            
+            <button type="submit">Войти</button>
+        </form>
+    </div>
+
+    <script src="scripts/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/faq.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Мой кабинет - FAQ</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#">Личный кабинет</a>
+            <a href="index.html">Главная</a>
+            <a href="calendar.html">Календарь</a>
+            <a href="#">Расписание</a>
+            <a href="#">База данных</a>
+        </nav>
+    </header>
+    <div class="app-container">
+        <div class="app-head">
+            <h1>Добро пожаловать, <span id="userEmail"></span></h1>
+            <button class="logout-btn" id="logoutBtn">Выйти</button>
+        </div>
+        
+        <div class="faq-page">
+            <div class="faq-head">
+                <h1>Часто задаваемые вопросы</h1>
+                <p>Здесь вы найдете ответы на самые популярные вопросы о работе системы</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Как войти в мой кабинет?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Для входа используйте ваш email и пароль. Пароль должен содержать только строчные латинские буквы и цифры.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Что делать, если я забыл пароль?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Нажмите на ссылку 'Забыли пароль?' на странице входа. Вам будет отправлена инструкция по восстановлению.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Как изменить расписание уроков?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Изменять расписание могут только заместители директора. Для этого перейдите в раздел 'Расписание' и используйте режим редактирования.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Где посмотреть данные учеников?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>База данных доступна в соответствующем разделе. Учителя могут только просматривать данные, секретари - редактировать.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Как добавить объявление для всех учителей?</h3>
+                        <span class="accordion-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>В разделе 'Объявления' нажмите кнопку 'Создать'. Эта функция доступна секретарю и заместителям директора.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<footer>
+        <nav>
+            <a href="#">Личный кабинет</a>
+            <a href="#">Главная</a>
+            <a href="#">Календарь</a>
+            <a href="#">Расписание</a>
+            <a href="#">База данных</a>
+            <a href="faq.html">Служба поддержки</a>
+        </nav>
+    </footer>
+    <script src="scripts/faq.js"></script>
+</body>
+</html>

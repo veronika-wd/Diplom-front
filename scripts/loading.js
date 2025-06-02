@@ -9,7 +9,7 @@
                 progress = 100;
                 clearInterval(interval);
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    window.location.href = 'landing-page.html';
                 }, 500);
             }
             

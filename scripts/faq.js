@@ -10,7 +10,7 @@
         document.getElementById('logoutBtn').addEventListener('click', function() {
             localStorage.removeItem('isAuthenticated');
             localStorage.removeItem('userEmail');
-            window.location.href = 'auth.html';
+            window.location.href = 'index.html';
         });
         
         // Аккордеон FAQ

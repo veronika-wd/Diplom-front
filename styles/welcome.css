@@ -11,6 +11,7 @@ body{
 main{
     width: 80%;
     margin: auto;
+    overflow-x: hidden;
 }
 
 
@@ -150,5 +151,9 @@ footer{
 
     .card-text{
         text-align: center;
+    }
+    
+    body{
+        overflow-x: hidden;
     }
 }

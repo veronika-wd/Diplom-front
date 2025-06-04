@@ -19,11 +19,12 @@ const swiperSchool = new Swiper('.swiper-school', {
 
 const swiperStaff = new Swiper('.swiper-staff', {
   slidesPerView: 1,
-  effect: 'cards',
+  loop: true,
+  effect: 'coverflow',
 
-  autoplay: {
-    delay: 5000,
-  }, 
+  // autoplay: {
+  //   delay: 5000,
+  // }, 
 
   pagination: {
     el: '.swiper-pagination',
@@ -42,6 +43,7 @@ const aboutAnim = () => {
     let scrollOffset = el.offsetTop;
     if( windowCenter >= scrollOffset){
       el.classList.add('active');
+      windowCenter = windowCenter + 100;
     } else{
       el.classList.remove('active');
     }

@@ -12,3 +12,8 @@ main{
     color: aliceblue;
     font-weight: 500;
 }
+
+.active-link {
+    font-weight: 600;
+    opacity: 100%;
+}

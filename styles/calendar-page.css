@@ -54,7 +54,7 @@ nav a:hover {
     opacity: 100%;
 }
 
-nav a:nth-child(2) {
+.active-link {
     font-weight: 600;
     opacity: 100%;
 }

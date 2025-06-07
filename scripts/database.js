@@ -45,34 +45,39 @@ const sortBySurname = document.getElementById('orderBySurname').addEventListener
     ]);
 });
 
-
-const toSearch = document.getElementById('search-inp').addEventListener('input', () => {
-const search = document.getElementById('search-inp').value.toLowerCase();
-
-if( search !== '') {
-    const results = pupils.filter(item => item.includes(search));
-    if(results.length === 0){
-        document.getElementById('database-tabel').innerHTML = '<p>Ничего не найдено</p>';
-    } else{
-        console.log(results);
-        const table = new Tabulator("#database-table", {
-            data: results,  // данные
-            layout: "fitColumns", // автоподбор ширины
-            columns: [
-                { title: "Фамилия", field: "surname" },
-                { title: "Имя", field: "name" },
-                { title: "Отчество", field: "patronimyc" },
-                { title: "Дата рождения", field: "birthDate" },
-                { title: "Класс", field: "class" },
-                { title: "Серия и номер паспорта", field: "passportData" },
-                { title: "Родитель", field: "parent" },
-                { title: "Номер телефона родителя", field: "parentPhone" },
-                { title: "Адресс проживания", field: "adrress" },
-            ],
+        // Настройка поиска
+        const searchInput = document.getElementById('searchInput');
+        
+        // Функция для выполнения поиска
+        function performSearch() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            
+            if (searchTerm === '') {
+                // Если поле пустое, показываем все данные
+                table.setData(pupils);
+                return;
+            }
+            
+            // Фильтруем товары по всем полям
+            const results = pupils.filter(pupil => {
+                return (
+                    pupil.name.toLowerCase().includes(searchTerm) ||
+                    pupil.surname.toLowerCase().includes(searchTerm) ||
+                    pupil.patronimyc.toLowerCase().includes(searchTerm) ||
+                    pupil.birthDate.toString().includes(searchTerm) ||
+                    pupil.class.toString().includes(searchTerm) ||
+                    pupil.passportData.toString().includes(searchTerm) ||
+                    pupil.parent.toString().includes(searchTerm) ||
+                    pupil.parentPhone.toString().includes(searchTerm) ||
+                    pupil.adrress.toString().includes(searchTerm)
+                );
             });
-    }
-}
-})
+            // Обновляем таблицу с результатами
+            table.setData(results);
+        }
+
+        // Слушаем событие input (поиск при вводе)
+        searchInput.addEventListener('input', performSearch);
 
 
 

@@ -43,15 +43,15 @@ button:hover {
   cursor: move;
   user-select: none;
 }
-.small {
+.calculator {
   width: calc(25% - 10px);
   background: #e3f2fd;
 }
-.medium {
+.pupils {
   width: calc(50% - 10px);
   background: #bbdefb;
 }
-.large {
+.notes {
   width: calc(100% - 10px);
   background: #90caf9;
 }

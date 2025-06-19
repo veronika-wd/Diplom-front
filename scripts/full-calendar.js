@@ -25,17 +25,13 @@ document.addEventListener('DOMContentLoaded', function() {
         editable: true,
         selectable: true,
         select: function(info) {
-            // Автозаполнение даты при клике на календарь
             document.getElementById('eventStart').value = info.startStr.substring(0, 16);
-            if (info.end) {
-                document.getElementById('eventEnd').value = info.endStr.substring(0, 16);
-            }
+            document.getElementById('eventEnd').value = info.end ? info.endStr.substring(0, 16) : '';
             modalTitle.textContent = 'Добавить событие';
             deleteEventBtn.style.display = 'none';
             openModal();
         },
         eventClick: function(info) {
-            // Просмотр/редактирование события при клике
             const event = info.event;
             document.getElementById('eventTitle').value = event.title;
             document.getElementById('eventStart').value = event.startStr.substring(0, 16);
@@ -55,12 +51,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     calendar.render();
     
-    // Открытие модального окна
     function openModal() {
         eventModal.style.display = 'block';
     }
     
-    // Закрытие модального окна
     function closeModal() {
         eventModal.style.display = 'none';
         eventForm.reset();
@@ -68,10 +62,11 @@ document.addEventListener('DOMContentLoaded', function() {
         deleteEventBtn.style.display = 'none';
     }
     
-    // Обработчики событий
     addEventBtn.addEventListener('click', function() {
-        // Сброс формы и открытие модального окна
         eventForm.reset();
+        const now = new Date();
+        const nowStr = now.toISOString().substring(0, 16);
+        document.getElementById('eventStart').value = nowStr;
         document.getElementById('eventColor').value = '#7f3d9e';
         modalTitle.textContent = 'Добавить событие';
         deleteEventBtn.style.display = 'none';
@@ -80,23 +75,21 @@ document.addEventListener('DOMContentLoaded', function() {
     
     closeBtn.addEventListener('click', closeModal);
     
-    // Обработчик кнопки удаления
+    // Исправленный обработчик удаления
     deleteEventBtn.addEventListener('click', function() {
-        if (eventForm.dataset.eventId) {
-            const eventId = eventForm.dataset.eventId;
-            const event = calendar.getEventById(eventId);
+        if (!eventForm.dataset.eventId) return;
+        
+        const eventId = eventForm.dataset.eventId;
+        const event = calendar.getEventById(eventId);
+        
+        if (confirm('Вы уверены, что хотите удалить это событие?')) {
+            event.remove();
             
-            if (event) {
-                // Удаляем событие из календаря
-                event.remove();
-                
-                // Удаляем событие из localStorage
-                let events = JSON.parse(localStorage.getItem('calendarEvents')) || [];
-                events = events.filter(e => e.id !== eventId);
-                localStorage.setItem('calendarEvents', JSON.stringify(events));
-                
-                closeModal();
-            }
+            let events = JSON.parse(localStorage.getItem('calendarEvents')) || [];
+            events = events.filter(e => e.id !== eventId);
+            localStorage.setItem('calendarEvents', JSON.stringify(events));
+            
+            closeModal();
         }
     });
     
@@ -106,15 +99,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Обработка отправки формы
     eventForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const title = document.getElementById('eventTitle').value;
+        const title = document.getElementById('eventTitle').value.trim();
         const start = document.getElementById('eventStart').value;
         const end = document.getElementById('eventEnd').value;
-        const description = document.getElementById('eventDescription').value;
+        const description = document.getElementById('eventDescription').value.trim();
         const color = document.getElementById('eventColor').value;
+        
+        if (!title) {
+            alert('Пожалуйста, введите название события');
+            return;
+        }
         
         const eventData = {
             title: title,
@@ -122,14 +119,13 @@ document.addEventListener('DOMContentLoaded', function() {
             end: end || null,
             description: description,
             backgroundColor: color,
-            borderColor: color
+            borderColor: color,
+            allDay: !start.includes('T')
         };
         
-        // Получаем все события из localStorage
         let events = JSON.parse(localStorage.getItem('calendarEvents')) || [];
         
         if (eventForm.dataset.eventId) {
-            // Редактирование существующего события
             const eventId = eventForm.dataset.eventId;
             const event = calendar.getEventById(eventId);
             
@@ -141,39 +137,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 event.setProp('backgroundColor', color);
                 event.setProp('borderColor', color);
                 
-                // Обновляем событие в массиве
                 const index = events.findIndex(e => e.id === eventId);
                 if (index !== -1) {
                     events[index] = {
                         id: eventId,
-                        title: title,
-                        start: start,
-                        end: end || null,
-                        description: description,
-                        backgroundColor: color,
-                        borderColor: color
+                        ...eventData
                     };
                 }
             }
         } else {
-            // Добавление нового события
             const newEvent = {
                 id: Date.now().toString(),
-                title: title,
-                start: start,
-                end: end || null,
-                description: description,
-                backgroundColor: color,
-                borderColor: color
+                ...eventData
             };
             
             calendar.addEvent(newEvent);
             events.push(newEvent);
         }
         
-        // Сохраняем события в localStorage
         localStorage.setItem('calendarEvents', JSON.stringify(events));
-        
         closeModal();
     });
 });
